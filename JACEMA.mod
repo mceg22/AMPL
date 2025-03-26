@@ -3,5 +3,5 @@ param total_days integer;
 param total_orders integer;
 
 # Ahora vamos a definir los conjuntos
-set OREDERS:={1..k};
+set ORDERS:={1..k};
 set PRODUCTS{ORDERS};
