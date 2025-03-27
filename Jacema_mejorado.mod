@@ -82,7 +82,7 @@ param Penalty2{Orders};
 # VARIABLES DE DECISION
 
 # Las variables para saber si el objeto numero i de tipo j del pedido k se fabrica el
-# dia i
+# dia t
 
 var Production{t in 1..T, k in Orders, j in Products[k], 1..Demand[k,j]} binary;
 
@@ -107,7 +107,7 @@ var Stored{t in 1..T, k in Orders, j in Products[k], 1..Demand[k,j]} binary;
 var Order_Materials{t in 1..T, l in RawMaterials} integer;
 
 # Variables binaria para saber a que empresa se dedica el viaje s del vehiculo u en el
-# dia k. Sera 1 si el viaje s del vehiculo u del dia i se dedica a la empresa k
+# dia k. Sera 1 si el viaje s del vehiculo u del dia t se dedica a la empresa k
 var Use_Loop{t in 1..T,k in Orders, u in Vehicles, s in 1..L} binary;
 
 # Las siguientes variables binarias seran 1 si y solo si el dia i no se ha terminado 
@@ -156,7 +156,7 @@ s.t. Unique_Delivery{k in Orders, j in Products[k], i in 1..Demand[j,k]}:
 s.t. Unique_Deliver1{t in 1..T, k in Orders, j in Products[k], i in 1..Demand[j,k]}:
 	sum{u in Vehicles, s in 1..L}Transport[t,k,j,i,u,s] = Delivered[t,k,j,i];
 
-# Para que cada objeto solo se entregue una vez
+# Para que cada objeto solo se entregue una vez.8
 s.t. Unique_Delivery2{k in Orders, j in Products[k], i in 1..Demand[k,j]}:
 	sum{t in 1..T}Delivered[t,k,j,i] = 1;
 	
