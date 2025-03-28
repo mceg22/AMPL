@@ -1,0 +1,28 @@
+param H := 9;
+param L := 3; 
+param C := 20;
+
+param LittleCap := 2;
+
+set Orders := {O1 O2 O3};
+set Products := 
+O1 Ventana1
+O2 
+O3 ;
+P1 Ventana_Movil 
+P2 Ventana_Fija
+P3 Puerta; 
+
+set Vehicles := {Camion_Grande Camion_Pequenno};
+set Small_Vehicles := {Camion_Pequenno};
+set RawMaterials = {Tornillos, Gomas, Manillas, Visagras, Persianas};
+
+set Production_Days := {1..5};
+set Delivery_Days := {2*i in Production_Days};
+
+param Demand := P1  P2  P3
+            O1  2   4   _   
+            O2
+            O3
+
+
