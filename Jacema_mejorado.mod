@@ -10,7 +10,7 @@ param L;
 # El numero de cajones o carritos donde se puede almacenar los productos
 param C;
 
-# Sera el maximo entre la altura y la anchura del producto
+# Sera el umbral para meter o no cosas en el camion pequeno
 param LittleCap;
 
 # ----------------------------------------------------------------------------------
@@ -74,10 +74,10 @@ param Penalty2{Orders};
 
 #Parametros de medidas de cada objeto
 
-param Height{k in Orders, j in Products[k], 1..Demand[k,j]};
-param Width{k in Orders, j in Products[k], 1..Demand[k,j]};
+param Height{k in Orders, j in Products[k], i in Objects[k,j]};
+param Width{k in Orders, j in Products[k], i in Objects[k,j]};
 
-param Cap{k in Orders, j in Products[k], 1..Demand[k,j]}; #Luego en el .dat seleccionaremos con un for el maximo
+param Cap{k in Orders, j in Products[k],i in Objects[k,j]}; #Luego en el .dat seleccionaremos con un for el maximo
 
 # ----------------------------------------------------------------------------------
 set Objects{k in Orders, j in Products[k]}:= {1..Demand[k,j]};
@@ -173,7 +173,7 @@ s.t. Vehicle_Capacity_Per_Loop{t in Production_Days, u in Vehicles, s in Loops}:
 	sum{k in Orders, j in Products[k], i in Objects[k,j]} Transport[t,k,j,i,u,s] <= Capacity_Vehicle[u];
 
 # Tambien hay vehiculos que son muy pequennos para llevar ciertos objetos
-s.t. Small_Vehicles_Restriction{u in Small_Vehicles, s in Loops, k in Orders, j in Products[k], i in 1..Demand[k,j]: Cap[k,j,i] >= LittleCap}:
+s.t. Small_Vehicles_Restriction{u in Small_Vehicles, s in Loops, k in Orders, j in Products[k], i in Objects[k,j]: Cap[k,j,i] >= LittleCap}:
 	sum{t in Production_Days, i in Objects[k,j]}Transport[t,k,j,i,u,s] = 0;
 
 # Las variables binarias de uso de los viajes deben representar lo que buscamos
