@@ -1,5 +1,5 @@
 - ( Eliminar ```param V``` (línea 10) ) TACHADO
 - Cambiar volumen ```param W``` por un conjunto de parametros que recorra ```RawMaterials``` (línea 13)
-- Mirar el hecho de que los vehículos pequeños no puedan llevar ciertos productos (el criterio sería la altura creo?)
+- Cambiar el índice de las variables Transporte para que las que verifiquen que su max(altura, anchura) > Little cap no esten definidas
 - Revisar periodos, por si queremos generalizar a que se puedan elegir la cantidad de estos
 - Las variables de transporte definirlar solo en el conjunto correspondiente, en el conjunto de dias de transporte intersecado con los días entre la fecha de inicio de la entrega y la fecha límite, cuidado que eso obliga a cambiar el orden de los índices, con este cambio el índice $t$ habría que ponerlo después de la $k$.
