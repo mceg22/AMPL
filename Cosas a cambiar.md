@@ -1,4 +1,4 @@
-- '' Eliminar ```param V``` (línea 10) ''
+- ( Eliminar ```param V``` (línea 10) ) TACHADO
 - Cambiar volumen ```param W``` por un conjunto de parametros que recorra ```RawMaterials``` (línea 13)
 - Mirar el hecho de que los vehículos pequeños no puedan llevar ciertos productos (el criterio sería la altura creo?)
 - Revisar periodos, por si queremos generalizar a que se puedan elegir la cantidad de estos
