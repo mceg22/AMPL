@@ -51,10 +51,7 @@ param Storage_Capacity{c in 1..C};
 # Capacidad de almacenamiento para cada materia prima
 param Material_Storage_Capacity{RawMaterials};
 
-# El volumen que ocupan cada tipo de producto en el camion
-param Volumn_In_Transport{k in Orders, j in Products[k]};
-
-# La capacidad de cada vehiculo
+# El numero de unidades que caben en cada vehiculo (porque lo hacemos en unidades y no en volumen)
 param Capacity_Vehicle{Vehicles};
 
 # Tiempo que tarda un vehiculo en ir de la fabrica a la empresa k
@@ -173,10 +170,10 @@ s.t. Unique_Delivery2{k in Orders, j in Products[k], i in Objects[k,j]}:
 	
 # No se puede superar la capacidad del camion en cada viaje
 s.t. Vehicle_Capacity_Per_Loop{t in Production_Days, u in Vehicles, s in Loops}:
-	sum{k in Orders, j in Products[k], i in Objects[k,j]}Volumn_In_Transport[k,j]*Transport[t,k,j,i,u,s] <= Capacity_Vehicle[u];
+	sum{k in Orders, j in Products[k], i in Objects[k,j]} Transport[t,k,j,i,u,s] <= Capacity_Vehicle[u];
 
 # Tambien hay vehiculos que son muy pequennos para llevar ciertos objetos
-s.t. Small_Vehicles_Restriction{u in Small_Vehicles, s in Loops, k in Orders, j in Products[k]: Volumn_In_Transport[k,j] >= MaxVol}:
+s.t. Small_Vehicles_Restriction{u in Small_Vehicles, s in Loops, k in Orders, j in Products[k], i in 1..Demand[k,j]: Cap[k,j,i] >= LittleCap}:
 	sum{t in Production_Days, i in Objects[k,j]}Transport[t,k,j,i,u,s] = 0;
 
 # Las variables binarias de uso de los viajes deben representar lo que buscamos
