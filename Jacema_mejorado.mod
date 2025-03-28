@@ -10,8 +10,9 @@ param L;
 # El numero de cajones o carritos donde se puede almacenar los productos
 param C;
 
-# El volumen maximo permitido para los camiones pequennos
-param MaxVol;
+# Sera el maximo entre la altura y la anchura del producto
+param LittleCap;
+
 # ----------------------------------------------------------------------------------
 # CONJUNTOS
 
@@ -73,6 +74,14 @@ param Day_Period2{Orders};
 param Penalty1{Orders};
 # Penalizacion en el periodo 2
 param Penalty2{Orders};
+
+#Parametros de medidas de cada objeto
+
+param Height{k in Orders, j in Products[k], 1..Demand[k,j]};
+param Width{k in Orders, j in Products[k], 1..Demand[k,j]};
+
+param Cap{k in Orders, j in Products[k], 1..Demand[k,j]}; #Luego en el .dat seleccionaremos con un for el maximo
+
 # ----------------------------------------------------------------------------------
 set Objects{k in Orders, j in Products[k]}:= {1..Demand[k,j]};
 set Loops := {1..L};
@@ -143,7 +152,10 @@ s.t. Storing2{t in Production_Days, k in Orders, j in Products[k], i in Objects[
 # La siguiente familia de restricciones es para relacionar la produccion el reparto
 # y el almacenaje
 s.t. Store_Deliver_Prodc{t in Production_Days, k in Orders, j in Products[k], i in Objects[k,j]}:
-	Production[t,k,j,i] = Stored[t,k,j,i] - Delivered[t,k,j,i];
+	 Stored[t,k,j,i] + Delivered[t,k,j,i] <=1;
+
+s.t. Store_Deliver_Prodc2{t in Production_Days, k in Orders, j in Products[k], i in Objects[k,j]}:
+	 Stored[t,k,j,i] + Delivered[t,k,j,i] >= Stored[t-1,k,j,i] +Production[t,k,j,i]; 
 # ----------------------------------------------------------------------------------
 # RESTRICCIONES DE TRANSPORTE
 
