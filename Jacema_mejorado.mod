@@ -134,10 +134,6 @@ var Total_Delivered{t in Production_Days, k in Orders} integer;
 var Use_Loop{k in Orders, Delivery_Days inter Delivery_Period[k], Vehicles, Loops} binary;
 
 # --------------------------------
-# --- PEDIDO DE MATERIALES ---
-# Variables para el pedido de las materias primas
-var Order_Materials{t in Production_Days, l in RawMaterials} integer;
-
 # --- VARIABLES PARA LOS RETRASOS ---
 # Las siguientes variables binarias seran 1 si y solo si el dia i no se ha terminado 
 # de entregar en pedido k
@@ -225,6 +221,10 @@ s.t. One_Order_Per_Loop{t in Production_Days, u in Vehicles, s in Loops}:
 s.t. Delivery_Work_Time_Limitation{t in Delivery_Days, u in Vehicles}:
 	 sum{k in Orders, s in Loops: t in Delivery_Period[k]}Delivery_Time[k]*Use_Loop[k,t,u,s] <= H;
 
+#Restriccion para que cada vehiculo no haga mas del maximo de viajes
+
+s.t. Max_Loops{t in Delivery_Days, u in Vehicles}:
+	sum{k in Orders, s in Loops} Use_Loop[k,t,u,s] <=L;
 # ----------------------------------------------------------------------------------
 # MODELIZAR LOS RETRASOS
 # ----------------------------------------------------------------------------------
