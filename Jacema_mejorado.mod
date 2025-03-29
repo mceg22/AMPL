@@ -240,30 +240,23 @@ s.t. Already_Delivered{t in Production_Days, k in Orders}:
 	
 # Introducimos unas nuevas variables bianrias que nos digan si el dia i es de retraso
 # para el pedido k, pero eso hay que expresar en forma de restricciones
-# Vamos a necesitar variables binarias auxiliares que por facilidad definiremos aqui
-# Ademas de parametros auxilizares como una M-grande una m_pequenna y un epsilon
-
-var Aux1{k in Orders, Day_Begin[k]..Day_Lim[k]} binary;
-var Aux2{k in Orders, Day_Begin[k]..Day_Lim[k]} binary;
-
-param M;
+# Vamos a necesitar parametros auxilizares como una M-grande una m_pequenna y un epsilon
 param m;
 param epsilon;
+param M;
+
+#Restriccion para que pare de producir cuando se alcance la demanda
+#Esta restriccion en principio no haria falta, pues como cada objeto esta indizado desde 1 hasta el total de demandas
+#y las variables son binarias identificativas de cada objeto nunca se va a superar la demanda
+
+#s.t. Stop_Producing{k in Orders, t in Delivery_Period[k]}:
+	#Total_Delivered[t,k] <=  Total_Demand[k];
 
 s.t. Control_Restriction_Finished1{k in Orders, t in Delivery_Period[k]}:
-	Total_Delivered[t,k] <=  Total_Demand[k] + M*Finished[k,t];
-	
+	Total_Delivered[t,k] >=  Total_Demand[k] + m*Finished[k,t];
+
 s.t. Control_Restriction_Finished2{k in Orders, t in Delivery_Period[k]}:
-	Total_Delivered[t,k] <=  Total_Demand[k] + m*Finished[k,t];
-
-s.t. Control_Restriction_Finished3{k in Orders, t in Delivery_Period[k]}:
-	Total_Delivered[t,k] >=  Total_Demand[k] + epsilon +  (m - epsilon)*Aux1[k,t];
-
-s.t. Control_Restriction_Finished4{k in Orders, t in Delivery_Period[k]}:
-	Total_Delivered[t,k] >=  Total_Demand[k] - epsilon +  (M + epsilon)*Aux2[k,t];
-
-s.t. Control_Restriction_Finished5{k in Orders, t in Delivery_Period[k]}:
-	Aux1[k,t] + Aux2[k,t] <= Finished[k,t];
+	Total_Delivered[t,k] <=  Total_Demand[k] - epsilon +  (M+ epsilon)*(1-Finished[k,t]);
 
 # -------------------------------------------------------------------------------
 # Entonces para contar el retraso debemos sumar las variables binarias que acabamos
