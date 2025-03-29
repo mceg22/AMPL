@@ -1,4 +1,4 @@
-- ( Eliminar ```param V``` (línea 10) ) TACHADO
+- ~~( Eliminar ```param V``` (línea 10) )~~
 - Cambiar volumen ```param W``` por un conjunto de parametros que recorra ```RawMaterials``` (línea 13)
 - Cambiar el índice de las variables Transporte para que las que verifiquen que su max(altura, anchura) > Little cap no esten definidas
 - Revisar periodos, por si queremos generalizar a que se puedan elegir la cantidad de estos
