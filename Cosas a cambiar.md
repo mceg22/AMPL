@@ -2,5 +2,5 @@
 - ~~Cambiar volumen ```param W``` por un conjunto de parametros que recorra ```RawMaterials``` (línea 13)~~
 - Cambiar el índice de las variables Transporte para que las que verifiquen que su max(altura, anchura) > Little cap no esten definidas
 - Revisar periodos, por si queremos generalizar a que se puedan elegir la cantidad de estos
-- Las variables de transporte definirlar solo en el conjunto correspondiente, en el conjunto de dias de transporte intersecado con los días entre la fecha de inicio de la entrega y la fecha límite, cuidado que eso obliga a cambiar el orden de los índices, con este cambio el índice $t$ habría que ponerlo después de la $k$.
+- ~~Las variables de transporte definirlar solo en el conjunto correspondiente, en el conjunto de dias de transporte intersecado con los días entre la fecha de inicio de la entrega y la fecha límite, cuidado que eso obliga a cambiar el orden de los índices, con este cambio el índice $t$ habría que ponerlo después de la $k$.~~
 - Implementar las restricciones de materias primas, esto incluye el pedido de las materias primas y su almacenamiento.
