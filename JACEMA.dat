@@ -4,6 +4,10 @@ param C := 20;
 
 param LittleCap := 2;
 
+param Storage_Capacity := 3;
+
+param Period := 5;
+
 set Orders := {O1 O2 O3};
 set Products := Ventana_Movil Ventana_Fija Puerta
 O1 + + +
@@ -12,40 +16,124 @@ O3 - - +;
 
 set Vehicles := {Camion_Grande Camion_Pequenno};
 set Small_Vehicles := {Camion_Pequenno};
-set RawMaterials = {Tornillos, Gomas, Manillas, Visagras, Persianas};
+
+set RawMaterials = {Tornillos Gomas Manillas Visagras Persianas};
 
 set Production_Days := {1..5};
-set Delivery_Days := {2*i in Production_Days};
+set Delivery_Days := {2*i in Production_Days: 2*i <= 5}; # Creo que debería funcionar, pero no estoy seguro
 
-param Demand := P1  P2  P3 
+param Demand := Ventana_Movil Ventana_Fija Puerta
             O1  2   4   .   
             O2  .   3   .         
             O3  .   .   2;
 
-param Cost_Time := P1  P2  P3
+param Cost_Time := Ventana_Movil Ventana_Fija Puerta
                O1  1.5   1   .   
                O2  .   0.5   .         
                O3  .   .   2;
 
 param Cost_RawMat := 
-            [*,*,Tornillos]: P1  P2  P3 :=
+            [*,*,Tornillos]: Ventana_Movil Ventana_Fija Puerta :=
                         O1  2   4   .   
                         O2  .   3   .         
                         O3  .   .   2;
-            [*,*,Gomas]: P1  P2  P3 :=
+            [*,*,Gomas]: Ventana_Movil Ventana_Fija Puerta :=
                         O1  2   4   .   
                         O2  .   3   .         
                         O3  .   .   2;
-            [*,*,Manillas]: P1  P2  P3 :=
+            [*,*,Manillas]: Ventana_Movil Ventana_Fija Puerta :=
                         O1  2   4   .   
                         O2  .   3   .         
                         O3  .   .   2;
-            [*,*,Visagras]: P1  P2  P3 :=
+            [*,*,Visagras]: Ventana_Movil Ventana_Fija Puerta :=
                         O1  2   4   .   
                         O2  .   3   .         
                         O3  .   .   2;
-            [*,*,Persianas]: P1  P2  P3 :=
+            [*,*,Persianas]: Ventana_Movil Ventana_Fija Puerta :=
                         O1  2   4   .   
                         O2  .   3   .         
                         O3  .   .   2;
+                        
+param Limitation_Use_Material := 
+Tornillos 13 
+Gomas 12
+Manillas 10
+Visagras 15
+Persianas 20;
+                       
+/*param Material_Storage_Capacity := # Esto por lo que hablamos al tarde del 28 igual no tiene sentido
+Tornillos 50
+Gomas     10
+Manillas  20
+Visagras  30
+Persianas 5;*/ # Borrar ya no se usa tras la ultima update del mod
 
+param Capacity_Vehicle:=
+Camion_Grande 4
+Camion_Pequenno 2;
+
+param Delivery_Time :=
+O1 2
+O2 3
+O3 1;
+
+param Day_Begin Day_Lim Day_Finish Day_Period1 Day_Period2:=
+O1          2      4        3 			3 			4
+O2          3      5        4 			4 			5
+O3          1      3        2 			2 			3; 
+
+
+param Penalty1 Penalty2 := # Ni idea que valores poner xd, habra que ver cuales poner para que tenga sentido
+O1 1 2
+O2 3 6
+O3 3 6;
+
+# Para esto he estado pensando la mejor forma de hacerlo y todas son un toston 
+# no creo que haya ninguna mas elegante que otra. Así que lo he hecho a manita f
+
+param Height := 
+O1 Ventana_Movil 1 1.4
+O1 Ventana_Movil 2 1.6
+
+O1 Ventana_Fija 1 1.4
+O1 Ventana_Fija 2 1.5
+O1 Ventana_Fija 3 1.3   
+O1 Ventana_Fija 4 1.8
+
+
+O2 Ventana_Fija 1 0.7
+O2 Ventana_Fija 2 0.8
+O2 Ventana_Fija 3 0.9
+
+
+O3 Puerta 1 2
+O3 Puerta 2 2.1;
+
+param Width := 
+O1 Ventana_Movil 1 1.4
+O1 Ventana_Movil 2 0.7
+
+O1 Ventana_Fija 1 0.4
+O1 Ventana_Fija 2 0.5
+O1 Ventana_Fija 3 1.3   
+O1 Ventana_Fija 4 0.8
+
+
+O2 Ventana_Fija 1 0.9
+O2 Ventana_Fija 2 0.9
+O2 Ventana_Fija 3 0.6
+
+
+O3 Puerta 1 1
+O3 Puerta 2 1.5;
+
+
+param Cap := {};
+
+for {k in Orders} {
+	for {j in Products[k]} {
+		for {i in Objects[k,j]} {
+			let Cap := Cap union {max(Height[k,j,i], Width[k,j,i])};
+		}
+	}
+}  	
