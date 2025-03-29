@@ -67,12 +67,12 @@ param Delivery_Time{Orders};
 # Los dias de inicio de la entrega
 param Day_Begin{Orders};
 # Los dias de supuesta finalizacion
-param Day_Finish{k in Orders} >= Day_Begin[k];
+param Day_Finish{k in Orders};
 # Los dias limite para cada pedido
-param Day_Lim{k in Orders} >= Day_Finish[k];
+param Day_Lim{k in Orders};
 # La fecha donde acaba el primer periodo
-param Day_Period1{k in Orders} >= Day_Finish[k];
-param Day_Period2{k in Orders} >= Day_Period1[k], <= Day_Lim[k];
+param Day_Period1{k in Orders};
+param Day_Period2{k in Orders};
 
 # Penalizacion en el periodo 1
 param Penalty1{Orders};
@@ -84,7 +84,7 @@ set Objects{k in Orders, j in Products[k]}:= {1..Demand[k,j]};
 #Conjunto de viajes que se pueden hacer en un dia
 set Loops := {1..L};
 #Conjunto de dias en los que se puede mandar algo a la empresa k
-set Delivery_Period{k in Orders} := {Day_Begin[k]..Day_Lim[k]};
+set Delivery_Period{k in Orders} := {t in Production_Days: ord(t,Production_Days) >= ord(Day_Begin[k], Production_Days) and ord(t,Production_Days) <= ord(Day_Lim[k], Production_Days)};
 # ----------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------
 # Parametros de medidas de cada objeto
