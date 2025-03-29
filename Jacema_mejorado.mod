@@ -78,9 +78,12 @@ param Day_Period2{k in Orders} >= Day_Period1[k], <= Day_Lim[k];
 param Penalty1{Orders};
 # Penalizacion en el periodo 2
 param Penalty2{Orders};
-# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------#
+#Conjunto de objetos de un tipo en un pedido
 set Objects{k in Orders, j in Products[k]}:= {1..Demand[k,j]};
+#Conjunto de viajes que se pueden hacer en un dia
 set Loops := {1..L};
+#Conjunto de dias en los que se puede mandar algo a la empresa k
 set Delivery_Period{k in Orders} := {Day_Begin[k]..Day_Lim[k]};
 # ----------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------
