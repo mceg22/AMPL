@@ -168,7 +168,7 @@ s.t. Storing1{t in Production_Days, k in Orders, j in Products[k], i in Objects[
 	sum{c in 1..C}Storage[t,k,j,i,c] = Stored[t,k,j,i];
 
 s.t. Storing2{t in Production_Days, k in Orders, j in Products[k], i in Objects[k,j]}:
-	1 = Stored[t,k,j,i];
+	1 >= Stored[t,k,j,i];
 # ----------------------------------------------------------------------------------
 # La siguiente familia de restricciones es para relacionar la produccion el reparto
 # y el almacenaje
