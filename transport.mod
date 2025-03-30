@@ -3,7 +3,9 @@
 #Limit of deliveries that can be done in one day
 param TravelLimit integer;
 
-var Transport
+var Transport;
+
+var Use_Loop;
 	
 # No se puede superar la capacidad del camion en cada viaje
 s.t. Vehicle_Capacity_Per_Loop{t in Delivery_Days, u in Vehicles, s in Loops}:
