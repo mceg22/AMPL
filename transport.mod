@@ -28,6 +28,8 @@ param Capacity_Vehicle{Vehicles};
 var Transport;
 
 var Use_Loop;
+
+#------------------
 	
 # No se puede superar la capacidad del camion en cada viaje
 s.t. Vehicle_Capacity_Per_Loop{t in Delivery_Days, u in Vehicles, s in Loops}:
