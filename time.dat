@@ -1,0 +1,15 @@
+
+param BegginingDate:=
+		'Day'		3
+		'Month'		5
+		'Year'		2025;
+
+param period=20;
+param BegginingDateWeekDay= 1;
+
+set Festivities = '4/5/2025' '7/5/2025';
+set DeliveryDaysWeek = 1 4;
+param WorkHoursDay = 9;
+param num_Delay_MiniPeriods = 3;
+param NumCarts = 10;
+param CartsCapacity = 1.50;

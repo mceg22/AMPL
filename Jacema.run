@@ -1,0 +1,10 @@
+#In this module well make tries:
+
+reset;
+model main.mod;
+model storage.mod;
+model objective.mod;
+model time_calculus.mod;
+data time.dat;
+model interconnect.mod;
+
