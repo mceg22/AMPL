@@ -1,5 +1,8 @@
 # TRANSPORT CONSTRAINTS AND SPECIFIC PARAMETERS
 
+#Limit of deliveries that can be done in one day
+param TravelLimit integer;
+
 var Transport
 	
 # No se puede superar la capacidad del camion en cada viaje
