@@ -1,8 +1,4 @@
-# RESTRICCIONES DE TRANSPORTE
-
-# Cada objeto solo se transporta una vez
-s.t. Unique_Delivery1{k in Orders, j in Products[k], i in Objects[k,j]}:
-	sum{t in Delivery_Days inter Delivery_Period[k], u in Vehicles, s in Loops}Transport[k,j,t,i,u,s] = 1;
+# TRANSPORT CONSTRAINTS
 
 # Para que la variable Delivered signifique lo que queremos
 s.t. Unique_Delivery2{k in Orders, j in Products[k], t in Production_Days, i in Objects[k,j]}:
