@@ -4,11 +4,19 @@
 set Vehicles;
 set Small_Vehicles within Vehicles;
 
+#-----------------
+
 #Limit of deliveries that can be done in one day
 param TravelLimit integer;
 
 #Maximum height/width of an object that can be delivered in a small vehicle
 param LittleCap;
+
+#Each vehicle can carry a number of units because we are considering that every product is as thick as the rest, so they can be put in a 
+#row one before another, whichn allow us to only count the number of products.
+param Capacity_Vehicle{Vehicles};
+
+#------------------
 
 var Transport;
 
