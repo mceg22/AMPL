@@ -3,6 +3,9 @@
 #Limit of deliveries that can be done in one day
 param TravelLimit integer;
 
+#Maximum height/width of an object that can be delivered in a small vehicle
+param LittleCap;
+
 var Transport;
 
 var Use_Loop;
