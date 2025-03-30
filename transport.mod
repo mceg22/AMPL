@@ -1,5 +1,9 @@
 # TRANSPORT CONSTRAINTS AND SPECIFIC PARAMETERS
 
+#Sets of vehicles avalaible for delivering products. Some of them are smaller and there are products that can't be carried on them.
+set Vehicles;
+set Small_Vehicles within Vehicles;
+
 #Limit of deliveries that can be done in one day
 param TravelLimit integer;
 
