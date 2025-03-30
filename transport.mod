@@ -58,7 +58,3 @@ s.t. One_Order_Per_Loop{t in Production_Days, u in Vehicles, s in Loops}:
 s.t. Delivery_Work_Time_Limitation{t in Delivery_Days, u in Vehicles}:
 	 sum{k in Orders, s in Loops: t in Delivery_Period[k]}Delivery_Time[k]*Use_Loop[k,t,u,s] <= H;
 
-#Restriccion para que cada vehiculo no haga mas del maximo de viajes
-
-s.t. Max_Loops{t in Delivery_Days, u in Vehicles}:
-	sum{k in Orders, s in Loops} Use_Loop[k,t,u,s] <=L;
