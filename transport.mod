@@ -6,8 +6,15 @@ set Small_Vehicles within Vehicles;
 
 #-----------------
 
-#Limit of deliveries that can be done in one day
+#Limit of loops that can be done in one day
 param TravelLimit integer;
+
+#------------------
+
+#Set of loops that can be done in one day
+set Loops := {1..TravelLimit};
+
+#------------------
 
 #Maximum height/width of an object that can be delivered in a small vehicle
 param LittleCap;
