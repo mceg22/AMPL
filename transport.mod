@@ -1,8 +1,6 @@
 # TRANSPORT CONSTRAINTS
 
-# Para que la variable Delivered signifique lo que queremos
-s.t. Unique_Delivery2{k in Orders, j in Products[k], t in Production_Days, i in Objects[k,j]}:
-	sum{u in Vehicles, s in Loops, r in Delivery_Period[k] inter Delivery_Days: r <= t}Transport[k,j,r,i,u,s] = Delivered[t,k,j,i];
+var Transport
 	
 # No se puede superar la capacidad del camion en cada viaje
 s.t. Vehicle_Capacity_Per_Loop{t in Delivery_Days, u in Vehicles, s in Loops}:
